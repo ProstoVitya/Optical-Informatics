@@ -10,8 +10,8 @@ namespace OpticalInf
         private const int Alpha = 1;
         private const int m = 1000;
         private const int n = 1000;
-        private const int a = -5, b = 5;
-        private const int p = -5, q = 5;
+        private const int a = -20, b = 20;
+        private const int p = -20, q = 20;
         private const double h = (b - a) / ((double)n);
         private const double l = (q - p) / ((double)m);
 
@@ -95,6 +95,19 @@ namespace OpticalInf
             {
                 result.Add(K(ksi, X[k]));
             }
+            return result;
+        }
+
+        
+        public Dictionary<double, Complex> CountInputSignal()
+        {
+            var result = new Dictionary<double, Complex>();
+            for (double c = a; c < b; c += h)
+            {
+                result.Add(c, InputFunctiuon(c));
+                X.Add(c);
+            }
+
             return result;
         }
     }

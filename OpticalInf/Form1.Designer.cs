@@ -1,5 +1,5 @@
 ﻿
-namespace OpticalInf
+namespace FirstLab
 {
     partial class Form1
     {

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3D9E1D61-FF8E-4C22-8C08-51A0B03B11D5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>OpticalInf</RootNamespace>
-    <AssemblyName>OpticalInf</AssemblyName>
+    <RootNamespace>FirstLab</RootNamespace>
+    <AssemblyName>FirstLab</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -81,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

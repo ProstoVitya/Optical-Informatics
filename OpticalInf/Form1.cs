@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using LiveCharts.Wpf;
 using System.Numerics;
 
-namespace OpticalInf
+namespace FirstLab
 {
     public partial class Form1 : Form
     {

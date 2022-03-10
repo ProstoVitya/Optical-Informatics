@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpticalInf", "OpticalInf\OpticalInf.csproj", "{3D9E1D61-FF8E-4C22-8C08-51A0B03B11D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstLab", "OpticalInf\FirstLab.csproj", "{3D9E1D61-FF8E-4C22-8C08-51A0B03B11D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

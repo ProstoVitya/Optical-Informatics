@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 
 
-namespace OpticalInf
+namespace FirstLab
 {
     public class FunctionModel
     {

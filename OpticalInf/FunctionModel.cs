@@ -10,8 +10,8 @@ namespace FirstLab
         private const int Alpha = 1;
         private const int m = 1000;
         private const int n = 1000;
-        private const int a = -20, b = 20;
-        private const int p = -20, q = 20;
+        private const int a = -10, b = 10;
+        private const int p = -10, q = 10;
         private const double h = (b - a) / ((double)n);
         private const double l = (q - p) / ((double)m);
 

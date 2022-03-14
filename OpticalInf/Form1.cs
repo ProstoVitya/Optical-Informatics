@@ -64,7 +64,7 @@ namespace FirstLab
             }
             for (int i = 0; i < _model.Ksi.Count; i++)
             {
-                values.Add(_result[i].Imaginary);
+                values.Add(_result[i].Magnitude);
             }
 
             cartesianChart1.AxisX.Clear();

@@ -11,9 +11,11 @@ namespace SecondLab
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+            var first = FunctionalModel.GetFunction();
+
+            /*Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form1());*/
         }
     }
 }

@@ -16,14 +16,16 @@ namespace SecondLab
         private const int M = 2048;
         private const int N = 200;
         private static readonly double Hx = (RightBound - LeftBound) / (double)N;
+        private static readonly double B2 = (N * N) / (4 * RightBound * M);
+        private static readonly double B1 = -B2;
 
-        private Complex InputFunction(double x)
+        public static Complex InputFunction(double x)
         {
             return Complex.Exp(-Math.PI * Complex.ImaginaryOne * x) +
                 Complex.Exp(3 * Math.PI * Complex.ImaginaryOne * x);
         }
 
-        private static double GaussBundle(double x)
+        private static Complex GaussBundle(double x)
         {
             return Math.Exp(-Math.Pow(x, 2));
         }
@@ -42,7 +44,7 @@ namespace SecondLab
             return pointsList;
         }
 
-        private static List<double> AddZerosToList(List<double> list, int size)
+        private static List<Complex> AddZerosToList(List<Complex> list, int size)
         {
             int zerosCount = size - list.Count;
             for (int i = 0; i < zerosCount; i+=2)
@@ -105,18 +107,18 @@ namespace SecondLab
             return result;
         }
 
-        public static Complex[] GetFunction()
+        public static Complex[] GetFunction(bool isGauss)
         {
             var numbers = SegmentSpliterator(LeftBound, RightBound, N);
-            var firstFuction = new List<double>();
+            var firstFuction = new List<Complex>();
             foreach (var number in numbers)
             {
-                firstFuction.Add(GaussBundle(number));
+                firstFuction.Add(isGauss? GaussBundle(number) : InputFunction(number));
             }
             firstFuction = AddZerosToList(firstFuction, M);
             firstFuction = TransderListSides(firstFuction);
-            var complexArray = DoubleListToComplexArray(firstFuction);
-            complexArray = FFT.Fft(complexArray);
+            var complexArray = FFT.Fft(firstFuction.ToArray());
+
             for (int i = 0; i < complexArray.Length; i++)
             {
                 complexArray[i] *= Hx;
@@ -125,12 +127,12 @@ namespace SecondLab
             preResult = TransderListSides(preResult);
 
             var result = new List<Complex>();
-            for (int i = M - N / 2; i < M + N / 2; i++)
+            for (int i = (M - N) / 2; i < (M + N) / 2; i++)
             {
                 result.Add(preResult[i]);
             }
 
-            return complexArray;
+            return result.ToArray();
         }
     }
 }

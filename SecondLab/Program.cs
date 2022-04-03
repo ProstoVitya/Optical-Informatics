@@ -11,7 +11,8 @@ namespace SecondLab
         [STAThread]
         static void Main()
         {
-            var first = FunctionalModel.GetFunction();
+            var first = FunctionalModel.GetFunction(true);
+            var second = FunctionalModel.GetFunction(false);
 
             /*Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

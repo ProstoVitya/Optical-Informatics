@@ -10,7 +10,7 @@ namespace SecondLab
 
     //exp(-pi*i*x)+exp(3*pi*i*x)
     //финитное преобразование
-    class FunctionalModel
+    class FunctionModel
     {
         private const int LeftBound = -5, RightBound = 5;
         private const int M = 2048;
@@ -19,18 +19,18 @@ namespace SecondLab
         private static readonly double B2 = (N * N) / (4 * RightBound * M);
         private static readonly double B1 = -B2;
 
-        public static Complex InputFunction(double x)
+        public Complex InputFunction(double x)
         {
             return Complex.Exp(-Math.PI * Complex.ImaginaryOne * x) +
                 Complex.Exp(3 * Math.PI * Complex.ImaginaryOne * x);
         }
 
-        private static Complex GaussBundle(double x)
+        public Complex GaussBundle(double x)
         {
             return Math.Exp(-Math.Pow(x, 2));
         }
 
-        private static List<double> SegmentSpliterator(double pointFrom, double pointTo,
+        private List<double> SegmentSpliterator(double pointFrom, double pointTo,
             int segmentsCount)
         {
             var pointsList = new List<double>();
@@ -44,7 +44,7 @@ namespace SecondLab
             return pointsList;
         }
 
-        private static List<Complex> AddZerosToList(List<Complex> list, int size)
+        private List<Complex> AddZerosToList(List<Complex> list, int size)
         {
             int zerosCount = size - list.Count;
             for (int i = 0; i < zerosCount; i+=2)
@@ -55,22 +55,7 @@ namespace SecondLab
             return list;
         }
 
-        private static List<double> TransderListSides(List<double> list)
-        {
-            int center = list.Count / 2;
-            var result = new List<double>();
-            for (int i = center; i < list.Count; i++)
-            {
-                result.Add(list[i]);
-            }
-            for (int i = 0; i < center; i++)
-            {
-                result.Add(list[i]);
-            }
-            return result;
-        }
-
-        private static List<Complex> TransderListSides(List<Complex> list)
+        private List<Complex> TransderListSides(List<Complex> list)
         {
             int center = list.Count / 2;
             var result = new List<Complex>();
@@ -85,29 +70,7 @@ namespace SecondLab
             return result;
         }
 
-        /*public static void Main(string[] args)
-        {
-            var numbers = SegmentSpliterator(LeftBound, RightBound, N);
-            var firstFuction = new List<double>();
-            foreach (var number in numbers)
-            {
-                firstFuction.Add(GaussBundle(number));
-            }
-            firstFuction = AddZerosToList(firstFuction, M);
-            firstFuction = TransderListSides(firstFuction);
-        }*/
-
-        private static Complex[] DoubleListToComplexArray(List<double> list)
-        {
-            var result = new Complex[list.Count];
-            for (int i = 0; i < result.Length; i++)
-            {
-                result[i] = new Complex(list[i], 0d);
-            }
-            return result;
-        }
-
-        public static Complex[] GetFunction(bool isGauss)
+        public Complex[] GetFunction(bool isGauss)
         {
             var numbers = SegmentSpliterator(LeftBound, RightBound, N);
             var firstFuction = new List<Complex>();
@@ -133,6 +96,17 @@ namespace SecondLab
             }
 
             return result.ToArray();
+        }
+
+        public List<Complex> GetGaussValues()
+        {
+            var result = new List<Complex>();
+            var step = (RightBound - LeftBound) / ((double) N);
+            for (double i = LeftBound; i < RightBound; i += step)
+            {
+                result.Add(GaussBundle(i));
+            }
+            return result;
         }
     }
 }

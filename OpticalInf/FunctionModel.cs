@@ -38,8 +38,7 @@ namespace FirstLab
 
         public Complex K(double ksi, double x)
         {
-            return Complex.ImaginaryOne * Complex.Exp(-Alpha *
-                Complex.Abs(x + ksi * Complex.ImaginaryOne));
+            return Math.Exp(-Math.Pow(x, 2));
         }
 
         public List<Complex> Result()

@@ -11,12 +11,12 @@ namespace SecondLab
         [STAThread]
         static void Main()
         {
-            var first = FunctionalModel.GetFunction(true);
-            var second = FunctionalModel.GetFunction(false);
+           /* var first = FunctionalModel.GetFunction(true);
+            var second = FunctionalModel.GetFunction(false);*/
 
-            /*Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());*/
+            Application.Run(new Form1());
         }
     }
 }

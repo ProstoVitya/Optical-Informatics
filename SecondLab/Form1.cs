@@ -1,14 +1,8 @@
-﻿using LiveCharts;
-using LiveCharts.Wpf;
+﻿using OxyPlot;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SecondLab
@@ -26,69 +20,36 @@ namespace SecondLab
         //phase
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            var lables = new List<string>();
-            var collection = new SeriesCollection();
-
-            var values = new ChartValues<double>();
-            var step = 1d / 20d;
-            for (double i = -5; i < 5; i += step)
+            var myModel = new PlotModel();
+            var scatterSeries = new ScatterSeries();
+            var xList = _model.UList();
+            for (int i = 0; i < xList.Count; i++)
             {
-                lables.Add(i.ToString());
+                scatterSeries.Points.Add(new ScatterPoint(xList[i], _result[i].Phase));
             }
-            for (int i = 0; i < _result.Count; i++)
-            {
-                values.Add(_result[i].Imaginary);
-            }
-
-            cartesianChart1.AxisX.Clear();
-            cartesianChart1.AxisX.Add(new Axis()
-            {
-                Title = "Phase",
-                Labels = lables
-            });
-
-            var line = new LineSeries();
-            line.Values = values;
-
-            collection.Add(line);
-            cartesianChart1.Series = collection;
+            myModel.Series.Add(scatterSeries);
+            plotView1.Model = myModel;
         }
 
         //amplitude
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            var lables = new List<string>();
-            var collection = new SeriesCollection();
-
-            var values = new ChartValues<double>();
-            var step = 1d / 20d;
-            for (double i = -5; i < 5; i += step)
+            var myModel = new PlotModel();
+            var scatterSeries = new ScatterSeries();
+            var xList = _model.UList();
+            for (int i = 0; i < xList.Count; i++)
             {
-                lables.Add(i.ToString());
+                scatterSeries.Points.Add(new ScatterPoint(xList[i], _result[i].Magnitude));
             }
-            for (int i = 0; i < _result.Count; i++)
-            {
-                values.Add(_result[i].Real);
-            }
-
-            cartesianChart1.AxisX.Clear();
-            cartesianChart1.AxisX.Add(new Axis()
-            {
-                Title = "Phase",
-                Labels = lables
-            });
-
-            var line = new LineSeries();
-            line.Values = values;
-
-            collection.Add(line);
-            cartesianChart1.Series = collection;
+            myModel.Series.Add(scatterSeries);
+            plotView1.Model = myModel;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             _model = new FunctionModel();
-            _result = _model.GetFunction(true).ToList();
+            _result = _model.AnaliticFurier();
+            //_result = _model.FftValues();
         }
     }
 }

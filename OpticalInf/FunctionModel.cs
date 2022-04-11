@@ -10,8 +10,8 @@ namespace FirstLab
         private const int Alpha = 1;
         private const int m = 1000;
         private const int n = 1000;
-        private const int a = -10, b = 10;
-        private const int p = -10, q = 10;
+        private const int a = -5, b = 5;
+        private const int p = -5, q = 5;
         private const double h = (b - a) / ((double)n);
         private const double l = (q - p) / ((double)m);
 
@@ -33,12 +33,13 @@ namespace FirstLab
 
         public Complex InputFunctiuon(double x)
         {
-            return Complex.Exp(Complex.ImaginaryOne * x / 10);
+            return Math.Exp(-Math.Pow(x, 2));
         }
 
         public Complex K(double ksi, double x)
         {
-            return Math.Exp(-Math.Pow(x, 2));
+            return Complex.ImaginaryOne * Complex.Exp(-Alpha *
+                Complex.Abs(x + ksi * Complex.ImaginaryOne));
         }
 
         public List<Complex> Result()
@@ -97,7 +98,7 @@ namespace FirstLab
             return result;
         }
 
-        
+
         public Dictionary<double, Complex> CountInputSignal()
         {
             var result = new Dictionary<double, Complex>();

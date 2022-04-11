@@ -11,6 +11,7 @@ namespace FirstLab
     {
         private FunctionModel _model;
         private List<Complex> _result;
+        private Dictionary<double, Complex> _inputFuction;
 
         public Form1()
         {
@@ -21,6 +22,7 @@ namespace FirstLab
         {
             _model = new FunctionModel();
             _result = _model.Result();
+            _inputFuction = _model.CountInputSignal();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -64,7 +66,7 @@ namespace FirstLab
             }
             for (int i = 0; i < _model.Ksi.Count; i++)
             {
-                values.Add(_result[i].Magnitude);
+                values.Add(_result[i].Phase);
             }
 
             cartesianChart1.AxisX.Clear();
@@ -87,19 +89,21 @@ namespace FirstLab
             var collection = new SeriesCollection();
 
             var values = new ChartValues<double>();
-            for (int i = 0; i < _result.Count; i++)
+
+            foreach (var item in _inputFuction)
             {
-                lables.Add(_result[i].Real.ToString());
+                lables.Add(item.Key.ToString());
             }
-            for (int i = 0; i < _model.Ksi.Count; i++)
+
+            foreach (var item in _inputFuction)
             {
-                values.Add(_result[i].Imaginary);
+                values.Add(item.Value.Magnitude);
             }
 
             cartesianChart1.AxisX.Clear();
             cartesianChart1.AxisX.Add(new Axis()
             {
-                Title = "Core",
+                Title = "Imaginary",
                 Labels = lables
             });
 

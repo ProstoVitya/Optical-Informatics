@@ -13,8 +13,8 @@ namespace SecondLab
     class FunctionModel
     {
         public const double A1 = -5, A2 = 5;
-        public const int N = 1000;
-        public const int M = 32768;
+        public const int N = 200;
+        public const int M = 2048;
         public static readonly double B2 = (N * N) / (4 * A2 * M);
         public static readonly double B1 = -B2;
         public static readonly double Hx = (A2 - A1) / N;
@@ -43,9 +43,11 @@ namespace SecondLab
         public List<double> UList()
         {
             var uList = new List<double>();
-            for (double i = B1; i < B2; i += Hu)
+            double point = B1;
+            for (double i = 0; i < N; i++)
             {
-                uList.Add(i);
+                uList.Add(point);
+                point += Hu;
             }
             return uList;
         }
@@ -61,9 +63,21 @@ namespace SecondLab
             return result;
         }
 
+        public List<Complex> FuctionValues()
+        {
+            var xList = XList();
+            var result = new List<Complex>();
+            foreach (var item in xList)
+            {
+                result.Add(Complex.Exp(-Math.PI * Complex.ImaginaryOne * item) +
+                  Complex.Exp(3 * Math.PI * Complex.ImaginaryOne * item));
+            }
+            return result;
+        }
+
         public List<Complex> FftValues()
         {
-            var firstFuction = GaussValues();
+            var firstFuction = FuctionValues();
             firstFuction = AddZerosToList(firstFuction, M);
             firstFuction = TransderListSides(firstFuction);
             var complexArray = FFT.Fft(firstFuction.ToArray());
@@ -112,7 +126,7 @@ namespace SecondLab
         public List<Complex> AnaliticFurier()
         {
             var matrix = new Complex[N,N];
-            var fList = GaussValues();
+            var fList = FuctionValues();
             var xList = XList();
             for (int i_u = 0; i_u < N; i_u++)
             {

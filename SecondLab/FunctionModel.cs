@@ -39,7 +39,6 @@ namespace SecondLab
             return xList;
         }
 
-        //Fix like xList
         public List<double> UList()
         {
             var uList = new List<double>();
@@ -52,32 +51,22 @@ namespace SecondLab
             return uList;
         }
 
-        public List<Complex> GaussValues()
+        public List<Complex> FuctionValues(bool isGauss)
         {
             var xList = XList();
             var result = new List<Complex>();
             foreach (var item in xList)
             {
-                result.Add(Math.Exp(-Math.Pow(item, 2)));
-            }
-            return result;
-        }
-
-        public List<Complex> FuctionValues()
-        {
-            var xList = XList();
-            var result = new List<Complex>();
-            foreach (var item in xList)
-            {
-                result.Add(Complex.Exp(-Math.PI * Complex.ImaginaryOne * item) +
+                result.Add(isGauss ? Math.Exp(-Math.Pow(item, 2)) :
+                    Complex.Exp(-Math.PI * Complex.ImaginaryOne * item) +
                   Complex.Exp(3 * Math.PI * Complex.ImaginaryOne * item));
             }
             return result;
         }
 
-        public List<Complex> FftValues()
+        public List<Complex> FftValues(bool isGauss)
         {
-            var firstFuction = FuctionValues();
+            var firstFuction = FuctionValues(isGauss);
             firstFuction = AddZerosToList(firstFuction, M);
             firstFuction = TransderListSides(firstFuction);
             var complexArray = FFT.Fft(firstFuction.ToArray());
@@ -97,7 +86,7 @@ namespace SecondLab
             return result;
         }
 
-        private List<Complex> AddZerosToList(List<Complex> list, int size)
+        public List<Complex> AddZerosToList(List<Complex> list, int size)
         {
             int zerosCount = size - list.Count;
             for (int i = 0; i < zerosCount; i += 2)
@@ -108,7 +97,7 @@ namespace SecondLab
             return list;
         }
 
-        private List<Complex> TransderListSides(List<Complex> list)
+        public List<Complex> TransderListSides(List<Complex> list)
         {
             int center = list.Count / 2;
             var result = new List<Complex>();
@@ -123,10 +112,10 @@ namespace SecondLab
             return result;
         }
 
-        public List<Complex> AnaliticFurier()
+        public List<Complex> AnaliticFurier(bool isGauss)
         {
             var matrix = new Complex[N,N];
-            var fList = FuctionValues();
+            var fList = FuctionValues(isGauss);
             var xList = XList();
             for (int i_u = 0; i_u < N; i_u++)
             {

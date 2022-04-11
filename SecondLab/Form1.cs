@@ -110,10 +110,9 @@ namespace SecondLab
         private void Form1_Load(object sender, EventArgs e)
         {
             _model = new FunctionModel();
-            _result = _model.AnaliticFurier();
-            //_result = _model.FftValues();
-            //_result = _model.FuctionValues();
-            //_result = _model.GaussValues();
+            //_result = _model.AnaliticFurier(true);
+            //_result = _model.FftValues(true);
+            _result = _model.FuctionValues(true);
         }
     }
 }

@@ -11,9 +11,11 @@ namespace SecondLab
         [STAThread]
         static void Main()
         {
+            FunctionModel3D _model = new FunctionModel3D();
             var writer = new Writer();
-            writer.WriteFuctionValues(true);
-            writer.WriteFftValues(true);
+            writer.WriteValuesXlsx(_model.FftValues2, false, true);
+            //writer.WriteFuctionValues(true);
+            //writer.WriteFftValues(true);
             /*Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());*/

@@ -52,7 +52,11 @@ namespace SecondLab
                 {
                     result.Add(preResult[j]);
                 }
-                firstFuction[i] = result;
+                for (int j = 0; j < result.Count; j++)
+                {
+                    firstFuction[j][i] = result[j];
+                }
+                //firstFuction[i] = result;
             }
             //lines
             for (int i = 0; i < N; i++)

@@ -2,13 +2,7 @@
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ThirdLab
@@ -28,7 +22,7 @@ namespace ThirdLab
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            var lables = new List<string>();
+/*            var lables = new List<string>();
             var collection = new SeriesCollection();
 
             var values = new ChartValues<double>();
@@ -52,12 +46,12 @@ namespace ThirdLab
             line.Values = values;
 
             collection.Add(line);
-            cartesianChart1.Series = collection;
+            cartesianChart1.Series = collection;*/
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            var lables = new List<string>();
+            /*var lables = new List<string>();
             var collection = new SeriesCollection();
 
             var values = new ChartValues<double>();
@@ -81,7 +75,7 @@ namespace ThirdLab
             line.Values = values;
 
             collection.Add(line);
-            cartesianChart1.Series = collection;
+            cartesianChart1.Series = collection;*/
         }
     }
 }

@@ -14,7 +14,6 @@ namespace ThirdLab
         public const int A = 200;
         public const int B = 2048;
         private readonly List<double> _xList;
-        private readonly Complex[,] _matrix;
         private readonly double Hr = R/(A - 1);
 
         public FunctionModel()
@@ -23,8 +22,7 @@ namespace ThirdLab
             for (double i = 0; i < R; i += R / A)
                 _xList.Add(i);
 
-            _matrix = new Complex[2 * A - 1, 2 * A - 1];
-            FillMatrix();
+            //FillMatrix();
         }
 
         public List<double> XList { get => _xList; }
@@ -66,33 +64,35 @@ namespace ThirdLab
             return r;
         }
 
-        private void FillMatrix()
+        public Complex[,] RestoreImage(Func<List<Complex>> func)
         {
-            var lagger = GetGaussLaggerList();
-            var n = lagger.Count - 1;
-            for (int i = 0; i < lagger.Count; i++)
+            var matrix = new Complex[2 * A - 1, 2 * A - 1];
+            var funcValues = func();
+            var n = funcValues.Count - 1;
+            for (int i = 0; i < funcValues.Count; i++)
             {
-                var element = lagger[n - i];
-                _matrix[i, n] = element;
-                _matrix[2 * n - i , n] = element;
-                _matrix[n, i] = element;
-                _matrix[n, 2 * n - i] = element;
+                var element = funcValues[n - i];
+                matrix[i, n] = element;
+                matrix[2 * n - i , n] = element;
+                matrix[n, i] = element;
+                matrix[n, 2 * n - i] = element;
             }
 
-            for (int j = 0; j < _matrix.GetLength(0); j++)
+            for (int j = 0; j < matrix.GetLength(0); j++)
             {
-                for (int k = 0; k < _matrix.GetLength(0); k++)
+                for (int k = 0; k < matrix.GetLength(0); k++)
                 {
                     var alpha = Math.Round(Math.Sqrt(Math.Pow(j - n, 2) + Math.Pow(k - n, 2)));
                     if (alpha > n)
-                        _matrix[j, k] = 0;
+                        matrix[j, k] = 0;
                     else
                     {
                         var element = Complex.Exp(Complex.ImaginaryOne * M * Math.Atan2(k - n, j - n));
-                        _matrix[j, k] = GaussLagger(alpha * Hr) * element;
+                        matrix[j, k] = GaussLagger(alpha * Hr) * element;
                     }
                 }
             }
+            return matrix;
         }
 
         public List<Complex> Hankel()
@@ -104,8 +104,9 @@ namespace ThirdLab
             {
                 a = 0;
                 for (int j = 0; j < A; j++)
-                    a += a + Bessel.I(Math.Abs((int)M), 2 * Math.PI * _xList[j] * _xList[i]) * gaussList[j] * _xList[j] * Hr;
-                resultList.Add(a * (2 * Math.PI / Complex.Pow(Complex.ImaginaryOne, Math.Abs(M))));
+                    a += Bessel.I(Math.Abs((int)M), 2 * Math.PI * _xList[j] * _xList[i]) * gaussList[j] * _xList[j] * Hr
+                        * (2 * Math.PI / Complex.Pow(Complex.ImaginaryOne, Math.Abs(M)));
+                resultList.Add(a);
             }
             return resultList;
         }

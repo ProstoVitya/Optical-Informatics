@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 using Accord.Math;
 
@@ -21,8 +22,6 @@ namespace ThirdLab
             _xList = new List<double>();
             for (double i = 0; i < R; i += R / A)
                 _xList.Add(i);
-
-            //FillMatrix();
         }
 
         public List<double> XList { get => _xList; }
@@ -99,6 +98,8 @@ namespace ThirdLab
         {
             var resultList = new List<Complex>();
             var gaussList = GetGaussLaggerList();
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             Complex a;
             for (int i = 0; i < A; i++)
             {
@@ -108,6 +109,8 @@ namespace ThirdLab
                         * (2 * Math.PI / Complex.Pow(Complex.ImaginaryOne, Math.Abs(M)));
                 resultList.Add(a);
             }
+            stopwatch.Stop();
+            Console.WriteLine(stopwatch.Elapsed);
             return resultList;
         }
     }

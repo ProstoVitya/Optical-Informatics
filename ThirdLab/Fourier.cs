@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace ThirdLab
 {
     public class Fourier
     {
-        public const int N = 398;
+        public const int N = 399;
         public const int M = 4096;
         private readonly double Hx = R / (A - 1);
         public const double R = 5;
@@ -28,6 +29,9 @@ namespace ThirdLab
                 for (int j = 0; j < functionArray.GetLength(0); j++)
                     firstFunction[i].Add(functionArray[i, j]);
             }
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             for (int i = 0; i < N; i++)
             {
@@ -81,6 +85,8 @@ namespace ThirdLab
                 }
                 firstFunction[i] = result;
             }
+            stopwatch.Stop();
+            Console.WriteLine(stopwatch.Elapsed);
 
             for (int i = 0; i < firstFunction[0].Count; i++)
                 for (int j = 0; j < firstFunction[0].Count; j++)
